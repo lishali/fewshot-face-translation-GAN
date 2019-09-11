@@ -175,7 +175,7 @@ def get_src_inputs(fn, fd, fp, idet):
         landmarks: A numpy array of shape (68,2). 68-points face landmarks.
     """
     im = cv2.imread(fn)[..., ::-1]
-    im = auto_resize(im)
+    #im = auto_resize(im)
     (x0, y0, x1, y1), landmarks = detect_face(im, fd)
     aligned_im = align_image(im, x0, y0, x1, y1, landmarks)
     
@@ -211,7 +211,7 @@ def get_tar_inputs(fns, fd, fv):
     emb_avg_tar = np.zeros((1, 512))
     for fn in fns:
         im = cv2.imread(fn)[..., ::-1]
-        im = auto_resize(im)
+        #im = auto_resize(im)
         (x0, y0, x1, y1), landmarks = detect_face(im, fd)
         aligned_im = align_image(im, x0, y0, x1, y1, landmarks)    
         (x0, y0, x1, y1), landmarks2 = detect_face(aligned_im, fd, with_landmarks=False)
@@ -238,7 +238,7 @@ def post_process_result(fn, fd, result, aligned_im, src, x0, y0, x1, y1, landmar
      + fb_mask/255 * cv2.resize(result, (src.shape[1], src.shape[0]))
     
     im = cv2.imread(fn)[..., ::-1]
-    im = auto_resize(im)
+    #im = auto_resize(im)
     (fx0, fy0, fx1, fy1), _ = detect_face(im, fd, with_landmarks=False)
     lms_tar = get_tar_landmarks(im[fx0:fx1, fy0:fy1, :], 68)
 
